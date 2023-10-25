@@ -1,13 +1,14 @@
 ### To-do do projeto:
 
-[] Instalar dependências necessárias do projeto
-[] Criar estrutura base do projeto
+[x] Instalar dependências necessárias do projeto
+[x] Criar estrutura base do projeto
 [] Codar páginas do mobile de usuário comum
   [] Sign in
   [] Sign up
   [] Home
   [] Menu
   [] Detalhes do prato
+  
 [] Fazer conexão com o banco de dados
 
   ### No back-end:

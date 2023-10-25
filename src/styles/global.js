@@ -8,6 +8,8 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: ${({ theme }) => theme.colors.dark_400}
+    background-color: ${({ theme }) => theme.colors.dark_400};
+
+    font-family: Roboto;
   }
 `
