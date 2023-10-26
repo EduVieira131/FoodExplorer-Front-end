@@ -3,8 +3,8 @@
 [x] Instalar dependências necessárias do projeto
 [x] Criar estrutura base do projeto
 [] Codar páginas do mobile de usuário comum
-  [] Sign in
-  [] Sign up
+  [x] Sign in
+  [x] Sign up
   [] Home
   [] Menu
   [] Detalhes do prato
@@ -27,3 +27,7 @@
     [] Carregamento de detalhes do respectivo prato na página de detalhes do prato
     [] Adicionar novo prato
     [] Editar prato
+
+### Pendências:
+
+[x] Colocar propriedade para texto do botão

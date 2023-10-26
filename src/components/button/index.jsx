@@ -1,9 +1,9 @@
 import { Container } from './styles'
 
-export function Button() {
+export function Button({ label }) {
   return (
     <Container>
-      Entrar
+      {label}
     </Container>
   )
 }

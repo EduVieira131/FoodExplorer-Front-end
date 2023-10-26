@@ -4,7 +4,7 @@ import logo_polygon from '../../assets/polygon.svg'
 import { Input } from "../../components/input"
 import { Button } from "../../components/button"
 
-export function SignIn() {
+export function SignUp() {
   return (
     <Container>
       <Logo>
@@ -13,12 +13,13 @@ export function SignIn() {
       </Logo>
 
       <InputField>
+        <Input placeholder="Exemplo: Maria da Silva" label="Seu nome" />
         <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" />
         <Input placeholder="No mínimo 6 caracteres" label="Senha" />
 
-        <Button label='Entrar'/>
+        <Button label='Criar conta'/>
 
-        <RegisterLink to={'/register'} >Criar uma conta</RegisterLink>
+        <RegisterLink to={'/'} >Já tenho uma conta</RegisterLink>
       </InputField>
     </Container>
   )
