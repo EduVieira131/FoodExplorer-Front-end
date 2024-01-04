@@ -1,4 +1,4 @@
-import { Container, InputField, Logo, RegisterLink } from "./styles"
+import { CallToAction, Container, InputField, Logo, RegisterLink } from "./styles"
 
 import logo_polygon from '../../assets/polygon.svg'
 import { Input } from "../../components/input"
@@ -13,10 +13,12 @@ export function SignIn() {
       </Logo>
 
       <InputField>
+        <CallToAction>Faça login</CallToAction>
+
         <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" />
         <Input placeholder="No mínimo 6 caracteres" label="Senha" />
 
-        <Button label='Entrar'/>
+        <Button label='Entrar' />
 
         <RegisterLink to={'/register'} >Criar uma conta</RegisterLink>
       </InputField>
