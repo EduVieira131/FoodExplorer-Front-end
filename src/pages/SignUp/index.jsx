@@ -5,7 +5,7 @@ import { Input } from "../../components/input"
 import { Button } from "../../components/button"
 import { useState } from "react"
 
-import { api } from '../../services/index'
+import { api } from '../../services/api'
 import { useNavigate } from "react-router-dom"
 
 export function SignUp() {

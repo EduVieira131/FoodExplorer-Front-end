@@ -3,8 +3,19 @@ import { CallToAction, Container, InputField, Logo, RegisterLink } from "./style
 import logo_polygon from '../../assets/polygon.svg'
 import { Input } from "../../components/input"
 import { Button } from "../../components/button"
+import { useState } from "react"
+import { useAuth } from "../../hooks/auth"
 
 export function SignIn() {
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+
+  const { signIn } = useAuth()
+
+  function handleSignIn() {
+    signIn({ email, password })
+  }
+
   return (
     <Container>
       <Logo>
@@ -15,10 +26,10 @@ export function SignIn() {
       <InputField>
         <CallToAction>Faça login</CallToAction>
 
-        <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" type="email" />
-        <Input placeholder="No mínimo 6 caracteres" label="Senha" type="password" />
+        <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" type="email" onChange={e => setEmail(e.target.value)} />
+        <Input placeholder="No mínimo 6 caracteres" label="Senha" type="password" onChange={e => setPassword(e.target.value)} />
 
-        <Button label='Entrar' />
+        <Button label='Entrar' onClick={handleSignIn} />
 
         <RegisterLink to={'/register'} >Criar uma conta</RegisterLink>
       </InputField>
