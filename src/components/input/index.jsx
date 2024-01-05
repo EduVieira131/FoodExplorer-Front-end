@@ -1,11 +1,11 @@
 import { Container } from './styles'
 
 // eslint-disable-next-line react/prop-types
-export function Input({ placeholder, label, ...rest }) {
+export function Input({ type, placeholder, label, ...rest }) {
   return (
     <Container>
       <p>{label}</p>
-      <input type="text" placeholder={placeholder} {...rest} />
+      <input type={type} placeholder={placeholder} {...rest} />
     </Container>
   )
 }

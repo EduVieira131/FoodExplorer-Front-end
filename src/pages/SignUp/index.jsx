@@ -44,9 +44,9 @@ export function SignUp() {
       <InputField>
         <CallToAction>Crie sua conta</CallToAction>
 
-        <Input placeholder="Exemplo: Maria da Silva" label="Seu nome" onChange={e => setName(e.target.value)} />
-        <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" onChange={e => setEmail(e.target.value)} />
-        <Input placeholder="No mínimo 6 caracteres" label="Senha" onChange={e => setPassword(e.target.value)} />
+        <Input placeholder="Exemplo: Maria da Silva" label="Seu nome" onChange={e => setName(e.target.value)} type="text" />
+        <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" onChange={e => setEmail(e.target.value)} type="email" />
+        <Input placeholder="No mínimo 6 caracteres" label="Senha" onChange={e => setPassword(e.target.value)} type="password" />
 
         <Button label='Criar conta' onClick={handleSignUp} />
 

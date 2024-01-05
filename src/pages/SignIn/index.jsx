@@ -15,8 +15,8 @@ export function SignIn() {
       <InputField>
         <CallToAction>Faça login</CallToAction>
 
-        <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" />
-        <Input placeholder="No mínimo 6 caracteres" label="Senha" />
+        <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" type="email" />
+        <Input placeholder="No mínimo 6 caracteres" label="Senha" type="password" />
 
         <Button label='Entrar' />
 
