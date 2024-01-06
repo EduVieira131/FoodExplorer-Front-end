@@ -18,6 +18,28 @@ export const Container = styled.div`
     width: 32px;
     height: 32px;
   }
+
+  @media (min-width: 1200px) {
+    padding: 24px 123px;
+
+    gap: 32px;
+  }
+`
+
+export const MenuButton = styled.button`
+  background: none;
+  border: none;
+
+  padding: 4px 2px;
+
+  &:hover {
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+
+  @media (min-width: 1200px) {
+    display: none;
+  }
 `
 
 export const Logo = styled.div`
@@ -28,33 +50,96 @@ export const Logo = styled.div`
   justify-content: center;
   gap: 10px;
 
-  h1 {
-    font-family: Roboto;
-    font-size: 21px;
-    font-weight: 700;
-    color: ${({ theme }) => theme.colors.light_100};
+  @media (min-width: 1200px) {
+    width: auto;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    width: fit-content;
+
+    @media (min-width: 1200px) {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    h1 {
+      font-family: Roboto;
+      font-size: 1.313rem;
+      font-weight: 700;
+      color: ${({ theme }) => theme.colors.light_100};
+
+      @media (min-width: 1200px) {
+        font-size: 24px;
+      }
+    }
+
+    p {
+      height: 100%;
+
+      font-size: 0.75rem;
+      color: ${({ theme }) => theme.colors.cake_200};
+
+      @media (min-width: 1200px) {
+        width: 100%;
+        text-align: right;
+        transform: translateY(-4px);
+      }
+    }
   }
 
   img {
     width: 24px;
     height: 24px;
+
+    @media (min-width: 1200px) {
+      width: 30px;
+      height: 30px;
+    }
   }
 `
 
-export const CartProducts = styled.div`
+export const CartButton = styled.button`
   width: fit-content;
   height: 100%;
+
+  background: none;
+  border: none;
 
   position: relative;
 
   color: ${({ theme }) => theme.colors.light_100};
+
+  &:hover {
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+
+  @media (min-width: 1200px) {
+    width: auto;
+    height: auto;
+    padding: 12px 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background-color: ${({ theme }) => theme.colors.tomato_100};
+    border-radius: 5px;
+  }
 
   p {
     width: 20px;
     height: 20px;
     padding: 12px;
 
-    font-size: 14px;
+    font-size: 0.875rem;
 
     display: flex;
     align-items: center;
@@ -68,5 +153,92 @@ export const CartProducts = styled.div`
     border-radius: 99px;
 
     background-color: ${({ theme }) => theme.colors.tomato_100};
+
+    @media (min-width: 1200px) {
+      width: max-content;
+      height: auto;
+      padding: 0;
+
+      display: inline;
+
+      position: initial;
+      border-radius: 0;
+
+      line-height: 24px;
+    }
+
+    span {
+      display: none;
+
+      @media (min-width: 1200px) {
+        display: inline;
+      }
+    }
+  }
+`
+
+export const LogoutButton = styled.button`
+  width: auto;
+  padding: 4px;
+
+  display: none;
+
+  background: none;
+  border: none;
+
+  &:hover {
+    filter: brightness(0.5);
+    cursor: pointer;
+  }
+
+  @media (min-width: 1200px) {
+    display: inline;
+  }
+`
+
+export const SearchBar = styled.label`
+  width: 100%;
+  max-width: 600px;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  flex: 1;
+
+  padding: 12px 14px;
+
+  background: ${({ theme }) => theme.colors.dark_900};
+  border-radius: 5px;
+
+  &:hover {
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 1px solid white;
+  }
+
+  @media (min-width: 1200px) {
+    display: flex;
+  }
+
+  input {
+    width: 340px;
+    height: 100%;
+
+    display: flex;
+
+    border: none;
+    background: none;
+    outline: none;
+
+    color: ${({ theme }) => theme.colors.light_100};
+
+    ::placeholder {
+      color: ${({ theme }) => theme.colors.light_500};
+    }
   }
 `
