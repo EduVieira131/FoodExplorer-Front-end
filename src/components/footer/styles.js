@@ -18,15 +18,23 @@ export const Logo = styled.div`
   gap: 10px;
 
   p {
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 700;
 
     color: ${({ theme }) => theme.colors.light_700};
+
+    @media (min-width: 1200px) {
+      font-size: 24px;
+    }
   }
 `
 export const Paragraph = styled.p`
-  font-size: 14px;
-  line-height: 160%;
+  font-size: 12px;
 
   color: ${({ theme }) => theme.colors.light_200};
+
+  @media (min-width: 1200px) {
+    font-size: 14px;
+    line-height: 160%;
+  }
 `
