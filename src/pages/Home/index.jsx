@@ -1,3 +1,4 @@
+import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { Container, Main } from "./styles";
 
@@ -10,7 +11,7 @@ export function Home() {
         <h1>Título</h1>
       </Main>
 
-      <footer>Footer</footer>
+      <Footer />
     </Container>
   )
 }
