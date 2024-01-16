@@ -112,3 +112,35 @@ export const Hero = styled.div`
     }
   }
 `
+export const ContentSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  h2 {
+    font-family: 'Poppins';
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 140%;
+
+    color: ${({ theme }) => theme.colors.light_300};
+  }
+
+  .swiper {
+    width: 100%;
+  }
+
+  .swiper-slide {
+    height: auto;
+    width: auto;
+
+    display: flex;
+    justify-content: center;
+  }
+`
+
+export const ProductsCategoriesSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`
