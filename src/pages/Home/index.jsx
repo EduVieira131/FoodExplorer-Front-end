@@ -17,25 +17,29 @@ import { useNavigate } from "react-router-dom";
 
 export function Home() {
   const [products, setProducts] = useState([])
+  const [searchValue, setSearchValue] = useState("")
   const navigate = useNavigate()
+
+  function handleSearch(searchTerm) {
+    setSearchValue(searchTerm)
+  }
 
   function handleDetails(id) {
     navigate(`/details/${id}`)
   }
 
-
   useEffect(() => {
     async function fetchProducts() {
-      const response = await api.get('/products');
+      const response = await api.get(`/products?searchTerms=${searchValue}`);
       setProducts(response.data)
     }
 
     fetchProducts()
-  }, [])
+  }, [searchValue])
 
   return (
     <Container>
-      <Header />
+      <Header onSearch={handleSearch} />
 
       <Main>
         <Hero>

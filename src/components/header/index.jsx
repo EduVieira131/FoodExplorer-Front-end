@@ -9,9 +9,11 @@ import { CiSearch } from "react-icons/ci";
 
 import { useAuth } from '../../hooks/auth'
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export function Header() {
+export function Header({ onSearch }) {
   const { signOut, user } = useAuth()
+  const [searchTerm, setSearchTerm] = useState("")
   const navigate = useNavigate()
 
   function handleSignOut() {
@@ -19,6 +21,9 @@ export function Header() {
     signOut()
   }
 
+  useEffect(() => {
+    onSearch(searchTerm)
+  }, [searchTerm])
 
   return (
     <Container>
@@ -36,7 +41,7 @@ export function Header() {
 
       <SearchBar label="searchTerm">
         <CiSearch color="#C4C4CC" />
-        <input type="text" id="searchTerm" placeholder="Busque por pratos ou ingredientes" />
+        <input type="text" id="searchTerm" placeholder="Busque por pratos ou ingredientes" onChange={(e) => setSearchTerm(e.target.value)} />
       </SearchBar>
 
       <CartButton>
