@@ -6,9 +6,9 @@ import { Button } from '../button'
 import { Stepper } from "../stepper";
 
 // eslint-disable-next-line react/prop-types
-export function Card({ title, description, price, imageURL }) {
+export function Card({ title, description, price, imageURL, ...rest }) {
   return (
-    <Container>
+    <Container {...rest}>
       <ImageWrapper src={imageURL} />
 
       <Content>
@@ -25,7 +25,7 @@ export function Card({ title, description, price, imageURL }) {
       </ControlsPanel>
 
       <ActionButton>
-        <CiHeart size={24} color="#E1E1E6"/>
+        <CiHeart size={24} color="#E1E1E6" />
       </ActionButton>
     </Container>
   )

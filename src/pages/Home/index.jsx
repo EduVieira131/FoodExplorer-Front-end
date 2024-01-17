@@ -13,9 +13,16 @@ import 'swiper/css/navigation'
 import { Container, Hero, Main, ContentSection, ProductsCategoriesSection } from "./styles";
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
   const [products, setProducts] = useState([])
+  const navigate = useNavigate()
+
+  function handleDetails(id) {
+    navigate(`/details/${id}`)
+  }
+
 
   useEffect(() => {
     async function fetchProducts() {
@@ -56,7 +63,7 @@ export function Home() {
                   if (product.category.name == "Refeição") {
                     return (
                       <SwiperSlide key={product.id}>
-                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} />
+                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} onClick={() => handleDetails(product.id)} />
                       </SwiperSlide>
                     )
                   }
@@ -80,7 +87,7 @@ export function Home() {
                   if (product.category.name == "Sobremesa") {
                     return (
                       <SwiperSlide key={product.id}>
-                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} />
+                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} onClick={() => handleDetails(product.id)} />
                       </SwiperSlide>
                     )
                   }
@@ -104,7 +111,7 @@ export function Home() {
                   if (product.category.name == "Bebida") {
                     return (
                       <SwiperSlide key={product.id}>
-                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} />
+                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} onClick={() => handleDetails(product.id)} />
                       </SwiperSlide>
                     )
                   }
