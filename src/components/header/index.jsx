@@ -23,7 +23,7 @@ export function Header({ onSearch }) {
 
   useEffect(() => {
     onSearch(searchTerm)
-  }, [searchTerm])
+  }, [onSearch, searchTerm])
 
   return (
     <Container>
