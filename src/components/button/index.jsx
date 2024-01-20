@@ -1,9 +1,9 @@
 import { Container } from './styles'
 
-export function Button({ label, ...rest }) {
+export function Button({ children, ...rest }) {
   return (
     <Container {...rest}>
-      {label}
+      {children}
     </Container>
   )
 }

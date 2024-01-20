@@ -21,7 +21,9 @@ export function Card({ title, description, price, imageURL, ...rest }) {
       <ControlsPanel>
         <Stepper />
 
-        <Button label="incluir" />
+        <Button>
+          incluir
+        </Button>
       </ControlsPanel>
 
       <ActionButton>
