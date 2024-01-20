@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.button`
+export const Container = styled.div`
   width: 100%;
   height: 100%;
   max-width: 210px;
@@ -21,7 +21,7 @@ export const Container = styled.button`
   background: ${({ theme }) => theme.colors.dark_200};
 
   @media (min-width: 1200px) {
-    max-width: 300px;
+    max-width: 320px;
     max-height: 460px;
     min-height: 460px;
 
@@ -29,30 +29,37 @@ export const Container = styled.button`
   }
 `
 
-export const ImageWrapper = styled.img`
-  width: 88px;
-  height: 88px;
+export const Content = styled.button`
+  width: 100%;
 
-  @media (min-width: 1200px) {
-    width: 176px;
-    height: 176px;
-  }
-`
+  background: none;
+  border: none;
 
-export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
 
   @media (min-width: 1200px) {
     gap: 15px;
   }
 
-  h1 {
-    align-self: stretch;
-    text-align: center;
+  img {
+    width: 88px;
+    height: 88px;
 
-    font-size: 0.75rem;
+    @media (min-width: 1200px) {
+      width: 176px;
+      height: 176px;
+    }
+  }
+
+  h1 {
+    width: 100%;
+    align-self: center;
+
+    font-size: 0.875rem;
     font-family: 'Poppins';
     font-weight: 500;
     line-height: 24px;
@@ -60,6 +67,12 @@ export const Content = styled.div`
     color: ${({ theme }) => theme.colors.light_300};
 
     @media (min-width: 1200px) {
+      max-width: 256px;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
       font-size: 1.5rem;
       font-weight: 700;
       line-height: 140%;
@@ -70,6 +83,8 @@ export const Content = styled.div`
     display: none;
 
     @media (min-width: 1200px) {
+      width: 100%;
+
       display: block;
 
       text-align: center;
@@ -84,6 +99,8 @@ export const Content = styled.div`
   }
 
   span {
+    width: 124px;
+
     text-align: center;
 
     font-family: 'Roboto';
@@ -94,13 +111,15 @@ export const Content = styled.div`
     color: ${({ theme }) => theme.colors.cake_200};
 
     @media (min-width: 1200px) {
+      width: 100%;
+
       font-size: 2rem;
       line-height: 160%;
     }
   }
 `
 
-export const ControlsPanel = styled.div`
+export const ControlPanel = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,10 +128,12 @@ export const ControlsPanel = styled.div`
 
   @media (min-width: 1200px) {
     flex-direction: row;
+
+    max-width: 200px;
   }
 `
 
-export const ActionButton = styled.button`
+export const FavoriteButton = styled.button`
   position: absolute;
   top: 16px;
   right: 16px;

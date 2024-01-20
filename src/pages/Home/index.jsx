@@ -79,7 +79,13 @@ export function Home() {
                   if (product.category.name == "Refeição") {
                     return (
                       <SwiperSlide key={product.id}>
-                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} onClick={() => handleDetails(product.id)} />
+                        <Card.Root>
+                          <Card.Content name={product.name} description={product.description} price={product.price} image={imageExample} onClick={() => handleDetails(product.id)} />
+
+                          <Card.ControlPanel />
+
+                          <Card.FavoriteButton />
+                        </Card.Root>
                       </SwiperSlide>
                     )
                   }
@@ -103,7 +109,13 @@ export function Home() {
                   if (product.category.name == "Sobremesa") {
                     return (
                       <SwiperSlide key={product.id}>
-                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} onClick={() => handleDetails(product.id)} />
+                        <Card.Root>
+                          <Card.Content name={product.name} description={product.description} price={product.price} image={imageExample} onClick={() => handleDetails(product.id)} />
+
+                          <Card.ControlPanel />
+
+                          <Card.FavoriteButton />
+                        </Card.Root>
                       </SwiperSlide>
                     )
                   }
@@ -127,7 +139,13 @@ export function Home() {
                   if (product.category.name == "Bebida") {
                     return (
                       <SwiperSlide key={product.id}>
-                        <Card title={product.name} description={product.description} price={product.price} imageURL={imageExample} onClick={() => handleDetails(product.id)} />
+                        <Card.Root>
+                          <Card.Content name={product.name} description={product.description} price={product.price} image={imageExample} onClick={() => handleDetails(product.id)} />
+
+                          <Card.ControlPanel />
+
+                          <Card.FavoriteButton />
+                        </Card.Root>
                       </SwiperSlide>
                     )
                   }
