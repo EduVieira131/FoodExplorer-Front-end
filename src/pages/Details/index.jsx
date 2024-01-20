@@ -12,7 +12,13 @@ export function Details() {
   return (
 
     <Container>
-      <Header />
+      <Header.Root>
+        <Header.Menu />
+        <Header.Logo />
+        <Header.SearchBar />
+        <Header.Cart />
+        <Header.Logout />
+      </Header.Root>
 
       <ContentSection>
         <button>

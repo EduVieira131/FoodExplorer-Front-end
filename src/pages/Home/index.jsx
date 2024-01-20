@@ -1,8 +1,9 @@
 import { Card } from "../../components/card";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
-import { api } from '../../services/api'
+
 import heroImage from '../../assets/heroImage.png'
+
 import imageExample from '../../assets/prato1.png'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -13,33 +14,44 @@ import 'swiper/css/navigation'
 import { Container, Hero, Main, ContentSection, ProductsCategoriesSection } from "./styles";
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { api } from '../../services/api'
 
 export function Home() {
   const [products, setProducts] = useState([])
-  const [searchValue, setSearchValue] = useState("")
+
   const navigate = useNavigate()
 
-  function handleSearch(searchTerm) {
-    setSearchValue(searchTerm)
-  }
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('search');
 
   function handleDetails(id) {
     navigate(`/details/${id}`)
   }
 
   useEffect(() => {
-    async function fetchProducts() {
-      const response = await api.get(`/products?searchTerms=${searchValue}`);
+    async function fetchProducts(route) {
+      const response = await api.get(`${route}`);
       setProducts(response.data)
     }
 
-    fetchProducts()
-  }, [searchValue])
+    if (query) {
+      fetchProducts(`/products?searchTerms=${query}`)
+      return
+    }
+
+    fetchProducts("/products")
+  }, [query])
 
   return (
     <Container>
-      <Header onSearch={handleSearch} />
+      <Header.Root>
+        <Header.Menu />
+        <Header.Logo />
+        <Header.SearchBar />
+        <Header.Cart />
+        <Header.Logout />
+      </Header.Root>
 
       <Main>
         <Hero>
