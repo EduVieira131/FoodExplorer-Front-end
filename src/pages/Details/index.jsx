@@ -7,6 +7,7 @@ import ImageExample from "../../assets/prato1.png"
 import { Container, ContentSection, ControlsPanel, DishDescription, DishIngredients } from "./styles";
 
 import { PiCaretLeft } from "react-icons/pi";
+import { Tag } from "../../components/tag";
 
 export function Details() {
   return (
@@ -35,7 +36,9 @@ export function Details() {
             <p>Hello world</p>
 
             <DishIngredients>
-
+              <Tag>
+                Arroz
+              </Tag>
             </DishIngredients>
           </DishDescription>
 
