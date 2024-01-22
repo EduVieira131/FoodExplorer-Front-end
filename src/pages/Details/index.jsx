@@ -2,14 +2,35 @@ import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
 import { Stepper } from "../../components/stepper";
 import { Button } from "../../components/button";
+import { Tag } from "../../components/tag";
 import ImageExample from "../../assets/prato1.png"
 
-import { Container, ContentSection, ControlsPanel, DishDescription, DishIngredients } from "./styles";
+import { Container, ContentSection, ControlsPanel, DishDescription, DishIngredients, NavigationButton, Content } from "./styles";
 
-import { PiCaretLeft } from "react-icons/pi";
-import { Tag } from "../../components/tag";
+import { PiCaretLeft, PiReceipt } from "react-icons/pi";
+
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 export function Details() {
+  const [data, setData] = useState()
+
+  const params = useParams()
+  const navigate = useNavigate()
+
+  function handleBack() {
+    navigate("/")
+  }
+
+  useEffect(() => {
+    async function fetchDishes() {
+      const response = await api.get(`/products/${params.id}`)
+      setData(response.data)
+    }
+
+    fetchDishes()
+  }, [])
   return (
 
     <Container>
@@ -21,39 +42,53 @@ export function Details() {
         <Header.Logout />
       </Header.Root>
 
-      <ContentSection>
-        <button>
-          <PiCaretLeft />
-          Voltar
-        </button>
+      {
+        data &&
 
-        <img src={ImageExample} alt="Image do prato selecionado" />
+        <ContentSection>
+          <NavigationButton onClick={handleBack}>
+            <PiCaretLeft size={32} color="white" />
+            voltar
+          </NavigationButton>
 
-        <div>
-          <DishDescription>
-            <h1>Teste</h1>
+          <img src={ImageExample} alt="Image do prato selecionado" />
 
-            <p>Hello world</p>
+          <Content>
+            <DishDescription>
+              <h1>{data.name}</h1>
 
-            <DishIngredients>
-              <Tag>
-                Arroz
-              </Tag>
-            </DishIngredients>
-          </DishDescription>
+              <p>{data.description}</p>
 
-          <ControlsPanel>
-            <Stepper />
+              <DishIngredients>
+                {
+                  data.ingredients.map((item) => {
+                    return (
+                      <Tag key={item.id}>
+                        {item.name}
+                      </Tag>
+                    )
+                  })
+                }
+              </DishIngredients>
+            </DishDescription>
 
-            <Button>
-              Adicionar produto
-            </Button>
-          </ControlsPanel>
-        </div>
-      </ContentSection>
+            <ControlsPanel>
+              <Stepper />
+
+              <Button>
+                <PiReceipt size={23} color="white" />
+                pedir ∙ {new Intl.NumberFormat('pt-br', {
+                  style: 'currency',
+                  currency: 'BRL'
+                }).format(data.price)}
+              </Button>
+            </ControlsPanel>
+          </Content>
+        </ContentSection>
+      }
 
       <Footer />
-    </Container>
+    </Container >
 
   )
 }
