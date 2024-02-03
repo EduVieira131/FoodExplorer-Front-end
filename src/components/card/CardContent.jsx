@@ -9,7 +9,12 @@ export function CardContent({ image, name, description, price, ...rest }) {
       <h1>{name} {">"}</h1>
       <p>{description}</p>
 
-      <span>R$ {price}</span>
+      <span>
+        {new Intl.NumberFormat('pt-br', {
+          style: 'currency',
+          currency: 'BRL'
+        }).format(price)}
+      </span>
     </Content>
   )
 }

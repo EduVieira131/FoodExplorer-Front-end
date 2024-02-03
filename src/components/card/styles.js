@@ -84,6 +84,11 @@ export const Content = styled.button`
 
     @media (min-width: 1200px) {
       width: 100%;
+      max-height: 44px;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       display: block;
 

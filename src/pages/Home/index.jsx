@@ -1,47 +1,34 @@
-import { Card } from "../../components/card";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
+import { Section } from "../../components/section";
 
-import heroImage from '../../assets/heroImage.png'
+import heroImage from "../../assets/heroImage.png";
 
-import imageExample from '../../assets/prato1.png'
-
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-
-import { Container, Hero, Main, ContentSection, ProductsCategoriesSection } from "./styles";
+import { Container, ContentSection, Hero, Main } from "./styles";
 
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { api } from '../../services/api'
+import { useSearchParams } from "react-router-dom";
+import { api } from "../../services/api";
 
 export function Home() {
-  const [products, setProducts] = useState([])
-
-  const navigate = useNavigate()
+  const [products, setProducts] = useState([]);
 
   const [searchParams] = useSearchParams();
-  const query = searchParams.get('search');
-
-  function handleDetails(id) {
-    navigate(`/details/${id}`)
-  }
+  const query = searchParams.get("search");
 
   useEffect(() => {
     async function fetchProducts(route) {
       const response = await api.get(`${route}`);
-      setProducts(response.data)
+      setProducts(response.data);
     }
 
     if (query) {
-      fetchProducts(`/products?searchTerms=${query}`)
-      return
+      fetchProducts(`/products?searchTerms=${query}`);
+      return;
     }
 
-    fetchProducts("/products")
-  }, [query])
+    fetchProducts("/products");
+  }, [query]);
 
   return (
     <Container>
@@ -63,101 +50,31 @@ export function Home() {
           </div>
         </Hero>
 
-        <ContentSection>
-          <ProductsCategoriesSection>
-            <h2>Refeições</h2>
-
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={4}
-              direction="horizontal"
-              modules={[Navigation]}
-              navigation={true}
-            >
-              {
-                products.map(product => {
-                  if (product.category.name == "Refeição") {
-                    return (
-                      <SwiperSlide key={product.id}>
-                        <Card.Root>
-                          <Card.Content name={product.name} description={product.description} price={product.price} image={imageExample} onClick={() => handleDetails(product.id)} />
-
-                          <Card.ControlPanel />
-
-                          <Card.FavoriteButton />
-                        </Card.Root>
-                      </SwiperSlide>
-                    )
-                  }
-                })
-              }
-            </Swiper>
-          </ProductsCategoriesSection>
-
-          <ProductsCategoriesSection>
-            <h2>Sobremesas</h2>
-
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={4}
-              direction="horizontal"
-              modules={[Navigation]}
-              navigation={true}
-            >
-              {
-                products.map(product => {
-                  if (product.category.name == "Sobremesa") {
-                    return (
-                      <SwiperSlide key={product.id}>
-                        <Card.Root>
-                          <Card.Content name={product.name} description={product.description} price={product.price} image={imageExample} onClick={() => handleDetails(product.id)} />
-
-                          <Card.ControlPanel />
-
-                          <Card.FavoriteButton />
-                        </Card.Root>
-                      </SwiperSlide>
-                    )
-                  }
-                })
-              }
-            </Swiper>
-          </ProductsCategoriesSection>
-
-          <ProductsCategoriesSection>
-            <h2>Bebidas</h2>
-
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={4}
-              direction="horizontal"
-              modules={[Navigation]}
-              navigation={true}
-            >
-              {
-                products.map(product => {
-                  if (product.category.name == "Bebida") {
-                    return (
-                      <SwiperSlide key={product.id}>
-                        <Card.Root>
-                          <Card.Content name={product.name} description={product.description} price={product.price} image={imageExample} onClick={() => handleDetails(product.id)} />
-
-                          <Card.ControlPanel />
-
-                          <Card.FavoriteButton />
-                        </Card.Root>
-                      </SwiperSlide>
-                    )
-                  }
-                })
-              }
-            </Swiper>
-          </ProductsCategoriesSection>
-
-        </ContentSection>
+        {!products ? null : (
+          <ContentSection>
+            <Section
+              category="Refeições"
+              products={products.filter(
+                (product) => product.category.name == "Refeição"
+              )}
+            />
+            <Section
+              category="Bebidas"
+              products={products.filter(
+                (product) => product.category.name == "Bebida"
+              )}
+            />
+            <Section
+              category="Sobremesas"
+              products={products.filter(
+                (product) => product.category.name == "Sobremesa"
+              )}
+            />
+          </ContentSection>
+        )}
       </Main>
 
       <Footer />
-    </Container >
-  )
+    </Container>
+  );
 }
