@@ -1,19 +1,26 @@
-import { CallToAction, Container, InputField, Logo, RegisterLink } from "./styles"
+import {
+  CallToAction,
+  Container,
+  InputField,
+  Logo,
+  RegisterLink,
+} from "./styles";
 
-import logo_polygon from '../../assets/polygon.svg'
-import { Input } from "../../components/input"
-import { Button } from "../../components/button"
-import { useState } from "react"
-import { useAuth } from "../../hooks/auth"
+import { useState } from "react";
+import logo_polygon from "../../assets/polygon.svg";
+import { Button } from "../../components/button";
+import { Input } from "../../components/input";
+import { useAuth } from "../../hooks/auth";
 
 export function SignIn() {
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
-  const { signIn } = useAuth()
+  const { signIn } = useAuth();
 
   function handleSignIn() {
-    signIn({ email, password })
+    console.log("oi");
+    signIn({ email, password });
   }
 
   return (
@@ -26,13 +33,23 @@ export function SignIn() {
       <InputField>
         <CallToAction>Faça login</CallToAction>
 
-        <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" type="email" onChange={e => setEmail(e.target.value)} />
-        <Input placeholder="No mínimo 6 caracteres" label="Senha" type="password" onChange={e => setPassword(e.target.value)} />
+        <Input
+          placeholder="Exemplo: exemplo@exemplo.com.br"
+          label="Email"
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          placeholder="No mínimo 6 caracteres"
+          label="Senha"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-        <Button label='Entrar' onClick={handleSignIn} />
+        <Button label="Entrar" onClick={handleSignIn} />
 
-        <RegisterLink to={'/register'} >Criar uma conta</RegisterLink>
+        <RegisterLink to={"/register"}>Criar uma conta</RegisterLink>
       </InputField>
     </Container>
-  )
+  );
 }

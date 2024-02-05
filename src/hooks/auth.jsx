@@ -1,61 +1,56 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { api } from '../services/api'
+import { createContext, useContext, useEffect, useState } from "react";
+import { api } from "../services/api";
 
-const AuthContext = createContext({})
+const AuthContext = createContext({});
 
 // eslint-disable-next-line react/prop-types
 function AuthProvider({ children }) {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
 
   async function signIn({ email, password }) {
-
     try {
-      const response = await api.post("/sessions", { email, password })
-      const { user, token } = response.data
+      const response = await api.post("/sessions", { email, password });
+      const { user } = response.data;
 
-      localStorage.setItem("@foodexplorer:user", JSON.stringify(user))
-      localStorage.setItem("@foodexplorer:token", token)
+      localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
 
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-      setData({ user, token })
-
+      setData({ user });
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message)
+        alert(error.response.data.message);
       } else {
-        alert('Não foi possível entrar')
+        alert("Não foi possível entrar");
       }
     }
   }
 
   function signOut() {
-    localStorage.removeItem("@foodexplorer:user")
-    localStorage.removeItem("@foodexplorer:token")
+    localStorage.removeItem("@foodexplorer:user");
 
-    setData({})
+    setData({});
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('@foodexplorer:token')
-    const user = localStorage.getItem('@foodexplorer:user')
+    const user = localStorage.getItem("@foodexplorer:user");
 
-    if (token && user) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
+    if (user) {
       setData({
-        token,
-        user: JSON.parse(user)
-      })
+        user: JSON.parse(user),
+      });
     }
-  }, [])
+  }, []);
 
-  return <AuthContext.Provider value={{ signIn, user: data.user, signOut }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ signIn, user: data.user, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 function useAuth() {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
 
-  return context
+  return context;
 }
 
-export { AuthProvider, useAuth }
+export { AuthProvider, useAuth };
