@@ -1,10 +1,67 @@
-import { MenuButton } from "./styles";
-import { AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { CiSearch } from "react-icons/ci";
+
+import { useAuth } from "../../hooks/auth";
+import { Footer } from "../footer/index";
+
+import { CloseMenuButton, MenuButton, MenuItem, SideMenu } from "./styles";
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function HeaderMenu() {
+  const { signOut } = useAuth();
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  function handleSearch(event) {
+    if (event.key === "Enter") {
+      navigate(`/?search=${event.target.value}`);
+      setMenuIsOpen(false);
+      event.target.value = "";
+    }
+  }
+
+  function handleSignOut() {
+    navigate("/");
+    signOut();
+  }
+
   return (
-    <MenuButton>
-      <AiOutlineMenu color="white" />
-    </MenuButton>
-  )
+    <>
+      <MenuButton onClick={() => setMenuIsOpen(true)}>
+        <AiOutlineMenu color="white" />
+      </MenuButton>
+
+      <SideMenu data-menu-is-open={menuIsOpen}>
+        <header>
+          <CloseMenuButton onClick={() => setMenuIsOpen(false)}>
+            <AiOutlineClose color="white" />
+            Menu
+          </CloseMenuButton>
+        </header>
+
+        <main>
+          <label label="searchTerm">
+            <CiSearch color="#C4C4CC" />
+            <input
+              type="text"
+              id="searchTerm"
+              placeholder="Busque por pratos ou ingredientes"
+              onKeyDown={handleSearch}
+            />
+          </label>
+
+          <div>
+            <MenuItem>Novo prato</MenuItem>
+            <MenuItem onClick={handleSignOut}>Sair</MenuItem>
+          </div>
+        </main>
+
+        <Footer />
+      </SideMenu>
+    </>
+  );
 }
