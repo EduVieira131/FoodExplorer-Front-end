@@ -2,6 +2,8 @@ import { useState } from "react";
 import { AiOutlineUpload } from "react-icons/ai";
 import { PiCaretLeft } from "react-icons/pi";
 
+import { api } from "../../services/api";
+
 import {
   AddImageButton,
   Container,
@@ -23,6 +25,13 @@ import { IngredientButton } from "../../components/ingredientButton";
 import { Input } from "../../components/input";
 
 export function NewDishe() {
+  let productId = "";
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
 
@@ -43,6 +52,39 @@ export function NewDishe() {
 
   function handleRemoveTag(deleted) {
     setTags((prevState) => prevState.filter((tag) => tag !== deleted));
+  }
+
+  async function handleAddProduct() {
+    if (!title) {
+      return alert("Digite um nome para o produto.");
+    }
+
+    if (newTag) {
+      return alert("Você deixou uma tag no campo para adicionar.");
+    }
+
+    if (!description) {
+      return alert("Digite uma descrição para o produto.");
+    }
+
+    if (!price) {
+      return alert("Digite um preço para o produto.");
+    }
+
+    if (!category) {
+      return alert("Selecione uma categoria para o produto.");
+    }
+
+    productId = await api.post("/products", {
+      name: title,
+      ingredients: tags,
+      category,
+      price,
+      description,
+    });
+
+    alert("Produto criado com sucesso!");
+    console.log(productId);
   }
 
   return (
@@ -76,11 +118,19 @@ export function NewDishe() {
               </AddImageButton>
             </div>
 
-            <Input label="Nome" placeholder="Ex.:Salada Ceasar" type="text" />
+            <Input
+              label="Nome"
+              placeholder="Ex.:Salada Ceasar"
+              type="text"
+              onChange={(e) => setTitle(e.target.value)}
+            />
 
             <FieldWrapper>
               <label htmlFor="category">Categoria</label>
-              <SelectCategoryInput id="category">
+              <SelectCategoryInput
+                id="category"
+                onClick={(e) => setCategory(e.target.value)}
+              >
                 <option value="refeição">Refeição</option>
                 <option value="sobremesa">Sobremesa</option>
                 <option value="bebida">Bebida</option>
@@ -111,7 +161,12 @@ export function NewDishe() {
               />
             </TagSection>
 
-            <Input label="Preço" placeholder="R$ 00,00" type="number" />
+            <Input
+              label="Preço"
+              placeholder="R$ 00,00"
+              type="number"
+              onChange={(e) => setPrice(e.target.value)}
+            />
           </FieldWrapper>
 
           <FieldWrapper>
@@ -121,10 +176,11 @@ export function NewDishe() {
               cols="30"
               rows="10"
               placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+              onChange={(e) => setDescription(e.target.value)}
             ></DescriptionTextarea>
           </FieldWrapper>
 
-          <Button>Salvar alterações</Button>
+          <Button onClick={handleAddProduct}>Salvar alterações</Button>
         </FormSection>
       </Content>
 

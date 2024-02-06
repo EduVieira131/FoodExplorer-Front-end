@@ -62,7 +62,7 @@ export const NavigationButton = styled.button`
   }
 `;
 
-export const FormSection = styled.form`
+export const FormSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
