@@ -1,37 +1,44 @@
-import { CallToAction, Container, InputField, Logo, RegisterLink } from "./styles"
+import {
+  CallToAction,
+  Container,
+  InputField,
+  Logo,
+  RegisterLink,
+} from "./styles";
 
-import logo_polygon from '../../assets/polygon.svg'
-import { Input } from "../../components/input"
-import { Button } from "../../components/button"
-import { useState } from "react"
+import { useState } from "react";
+import logo_polygon from "../../assets/polygon.svg";
+import { Button } from "../../components/button";
+import { Input } from "../../components/input";
 
-import { api } from '../../services/api'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { api } from "../../services/api";
 
 export function SignUp() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   function handleSignUp() {
     if (!name || !email || !password) {
-      return alert('Preencha todos os campos')
+      return alert("Preencha todos os campos");
     }
 
-    api.post('/users', { name, email, password })
+    api
+      .post("/users", { name, email, password })
       .then(() => {
-        alert("Usuário cadastrado com sucesso!")
-        navigate("/")
+        alert("Usuário cadastrado com sucesso!");
+        navigate("/");
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
-          alert(error.response.data.message)
+          alert(error.response.data.message);
         } else {
-          alert("Não foi possível cadastrar")
+          alert("Não foi possível cadastrar");
         }
-      })
+      });
   }
 
   return (
@@ -44,14 +51,31 @@ export function SignUp() {
       <InputField>
         <CallToAction>Crie sua conta</CallToAction>
 
-        <Input placeholder="Exemplo: Maria da Silva" label="Seu nome" onChange={e => setName(e.target.value)} type="text" />
-        <Input placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" onChange={e => setEmail(e.target.value)} type="email" />
-        <Input placeholder="No mínimo 6 caracteres" label="Senha" onChange={e => setPassword(e.target.value)} type="password" />
+        <Input
+          placeholder="Exemplo: Maria da Silva"
+          label="Seu nome"
+          onChange={(e) => setName(e.target.value)}
+          type="text"
+        />
+        <Input
+          placeholder="Exemplo: exemplo@exemplo.com.br"
+          label="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+        />
+        <Input
+          placeholder="No mínimo 6 caracteres"
+          label="Senha"
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+        />
 
-        <Button label='Criar conta' onClick={handleSignUp} />
+        <Button label="Criar conta" onClick={handleSignUp}>
+          Criar conta
+        </Button>
 
-        <RegisterLink to={'/'} >Já tenho uma conta</RegisterLink>
+        <RegisterLink to={"/"}>Já tenho uma conta</RegisterLink>
       </InputField>
     </Container>
-  )
+  );
 }
