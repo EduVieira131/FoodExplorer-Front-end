@@ -31,6 +31,7 @@ export function NewDishe() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
+  const [image, setImage] = useState();
 
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
@@ -54,6 +55,11 @@ export function NewDishe() {
     setTags((prevState) => prevState.filter((tag) => tag !== deleted));
   }
 
+  function handleChangeImage(event) {
+    const file = event.target.files[0];
+    setImage(file);
+  }
+
   async function handleAddProduct() {
     if (!title) {
       return alert("Digite um nome para o produto.");
@@ -75,7 +81,7 @@ export function NewDishe() {
       return alert("Selecione uma categoria para o produto.");
     }
 
-    productId = await api.post("/products", {
+    const productData = await api.post("/products", {
       name: title,
       ingredients: tags,
       category,
@@ -83,8 +89,18 @@ export function NewDishe() {
       description,
     });
 
+    productId = productData.data.product_id;
+
+    const imageUploadForm = new FormData();
+    imageUploadForm.append("image", image);
+
+    const productImageURL = await api.patch(
+      `/products/image/${productId}`,
+      imageUploadForm
+    );
+
     alert("Produto criado com sucesso!");
-    console.log(productId);
+    navigate(`/details/${productId}`);
   }
 
   return (
@@ -114,7 +130,11 @@ export function NewDishe() {
                 <AiOutlineUpload size={28} color="white" />
                 <span>Selecione imagem</span>
 
-                <input type="file" id="disheImage" />
+                <input
+                  type="file"
+                  id="disheImage"
+                  onChange={handleChangeImage}
+                />
               </AddImageButton>
             </div>
 
