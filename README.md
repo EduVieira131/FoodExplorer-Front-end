@@ -1,33 +1,30 @@
-### To-do do projeto:
+## Food Explorer
 
-[x] Instalar dependências necessárias do projeto
-[x] Criar estrutura base do projeto
-[] Codar páginas do mobile de usuário comum
-  [x] Sign in
-  [x] Sign up
-  [] Home
-  [] Menu
-  [] Detalhes do prato
-  
-[] Fazer conexão com o banco de dados
+### Description:
 
-  ### No back-end:
-  [] Criar processo de autenticação
-  [] Criar processo de upload
+The Food Explorer project consists of an e-commerce application that allows users to buy dishes from restaurants online. In addition, the project has an administrator account, which allows you to manipulate the products on the site, adding or modifying added dishes.
 
-  ### No front-end:
-  [] Criar contexto de autenticação
-  [] Ajustar páginas de usuário e admin
-  [] Codar páginas restantes
-    [] Novo prato
-    [] Editar prato
-  [] Criar funcionalidades
-    [] Carregamento de pratos na página Home
-    [] Pesquisa pela barra de pesquisa
-    [] Carregamento de detalhes do respectivo prato na página de detalhes do prato
-    [] Adicionar novo prato
-    [] Editar prato
+The front-end of the project (this repository) was developed in ReactJS and Styled Components, creating a beautiful interface for the user.s
 
-### Pendências:
+### Preview:
 
-[x] Colocar propriedade para texto do botão
+<p align="center">
+  <img alt="Project image" src=".github/preview.png" width="80%">
+</p>
+
+### Tech stack:
+
+- [React JS](https://react.dev)
+- [Node.js](https://nodejs.org/en)
+- [Git/GitHub](https://git-scm.com)
+
+### Usage:
+
+You can clone this project and install the dependencies with the following command:
+
+```sh
+git https://github.com/EduVieira131/FoodExplorer-Front-end.git
+cd FoodExplorer-Front-end
+npm install
+npm run dev
+```
