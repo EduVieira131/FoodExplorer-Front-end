@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -25,5 +25,7 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.colors.dark_900};
 
     border: none;
+
+    font-family: "Roboto";
   }
-`
+`;
