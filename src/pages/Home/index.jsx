@@ -11,7 +11,9 @@ import { useSearchParams } from "react-router-dom";
 import { api } from "../../services/api";
 
 export function Home() {
-  const [products, setProducts] = useState([]);
+  const [snack, setSnack] = useState([]);
+  const [dessert, setDessert] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get("search");
@@ -19,7 +21,15 @@ export function Home() {
   useEffect(() => {
     async function fetchProducts(route) {
       const response = await api.get(`${route}`);
-      setProducts(response.data);
+      setSnack(
+        response.data.filter((data) => data.category.name === "refeição")
+      );
+      setDessert(
+        response.data.filter((data) => data.category.name === "sobremesa")
+      );
+      setDrinks(
+        response.data.filter((data) => data.category.name === "bebida")
+      );
     }
 
     if (query) {
@@ -29,7 +39,6 @@ export function Home() {
 
     fetchProducts("/products");
   }, [query]);
-
   return (
     <Container>
       <Header.Root>
@@ -50,28 +59,17 @@ export function Home() {
           </div>
         </Hero>
 
-        {!products ? null : (
-          <ContentSection>
-            <Section
-              category="Refeições"
-              products={products.filter(
-                (product) => product.category.name == "Refeição"
-              )}
-            />
-            <Section
-              category="Bebidas"
-              products={products.filter(
-                (product) => product.category.name == "Bebida"
-              )}
-            />
-            <Section
-              category="Sobremesas"
-              products={products.filter(
-                (product) => product.category.name == "Sobremesa"
-              )}
-            />
-          </ContentSection>
-        )}
+        <ContentSection>
+          {snack.length ? (
+            <Section category="Refeições" products={snack} />
+          ) : null}
+          {drinks.length ? (
+            <Section category="Bebidas" products={drinks} />
+          ) : null}
+          {dessert.length ? (
+            <Section category="Sobremesas" products={dessert} />
+          ) : null}
+        </ContentSection>
       </Main>
 
       <Footer />
