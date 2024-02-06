@@ -1,38 +1,56 @@
-import { Header } from "../../components/header";
-import { Footer } from "../../components/footer";
-import { Stepper } from "../../components/stepper";
 import { Button } from "../../components/button";
+import { Footer } from "../../components/footer";
+import { Header } from "../../components/header";
+import { Stepper } from "../../components/stepper";
 import { Tag } from "../../components/tag";
-import ImageExample from "../../assets/prato1.png"
 
-import { Container, ContentSection, ControlsPanel, DishDescription, DishIngredients, NavigationButton, Content } from "./styles";
+import {
+  Container,
+  Content,
+  ContentSection,
+  ControlsPanel,
+  DishDescription,
+  DishIngredients,
+  NavigationButton,
+} from "./styles";
 
 import { PiCaretLeft, PiReceipt } from "react-icons/pi";
 
-import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 
 export function Details() {
-  const [data, setData] = useState()
+  const [data, setData] = useState();
 
-  const params = useParams()
-  const navigate = useNavigate()
+  const [imageURL, setImageURL] = useState();
+  const [image, setImage] = useState();
+
+  const params = useParams();
+  const navigate = useNavigate();
 
   function handleBack() {
-    navigate("/")
+    navigate("/");
+  }
+  function createImagePreview() {
+    setImageURL(`${api.defaults.baseURL}/files/${data.image}`);
+    console.log(imageURL);
+
+    const imagePreview = URL.createObjectURL(imageURL);
+    setImage(imagePreview);
   }
 
   useEffect(() => {
     async function fetchDishes() {
-      const response = await api.get(`/products/${params.id}`)
-      setData(response.data)
+      const response = await api.get(`/products/${params.id}`);
+      setData(response.data);
+      createImagePreview();
     }
 
-    fetchDishes()
-  }, [])
-  return (
+    fetchDishes();
+  }, []);
 
+  return (
     <Container>
       <Header.Root>
         <Header.Menu />
@@ -42,16 +60,14 @@ export function Details() {
         <Header.Logout />
       </Header.Root>
 
-      {
-        data &&
-
+      {data && (
         <ContentSection>
           <NavigationButton onClick={handleBack}>
             <PiCaretLeft size={32} color="white" />
             voltar
           </NavigationButton>
 
-          <img src={ImageExample} alt="Image do prato selecionado" />
+          <img src={image} alt="Image do prato selecionado" />
 
           <Content>
             <DishDescription>
@@ -60,15 +76,9 @@ export function Details() {
               <p>{data.description}</p>
 
               <DishIngredients>
-                {
-                  data.ingredients.map((item) => {
-                    return (
-                      <Tag key={item.id}>
-                        {item.name}
-                      </Tag>
-                    )
-                  })
-                }
+                {data.ingredients.map((item) => {
+                  return <Tag key={item.id}>{item.name}</Tag>;
+                })}
               </DishIngredients>
             </DishDescription>
 
@@ -77,18 +87,18 @@ export function Details() {
 
               <Button>
                 <PiReceipt size={23} color="white" />
-                pedir ∙ {new Intl.NumberFormat('pt-br', {
-                  style: 'currency',
-                  currency: 'BRL'
+                pedir ∙{" "}
+                {new Intl.NumberFormat("pt-br", {
+                  style: "currency",
+                  currency: "BRL",
                 }).format(data.price)}
               </Button>
             </ControlsPanel>
           </Content>
         </ContentSection>
-      }
+      )}
 
       <Footer />
-    </Container >
-
-  )
+    </Container>
+  );
 }
