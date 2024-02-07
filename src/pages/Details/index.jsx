@@ -23,28 +23,17 @@ import { api } from "../../services/api";
 export function Details() {
   const [data, setData] = useState();
 
-  const [imageURL, setImageURL] = useState();
-  const [image, setImage] = useState();
-
   const params = useParams();
   const navigate = useNavigate();
 
   function handleBack() {
     navigate("/");
   }
-  function createImagePreview() {
-    setImageURL(`${api.defaults.baseURL}/files/${data.image}`);
-    console.log(imageURL);
-
-    const imagePreview = URL.createObjectURL(imageURL);
-    setImage(imagePreview);
-  }
 
   useEffect(() => {
     async function fetchDishes() {
       const response = await api.get(`/products/${params.id}`);
       setData(response.data);
-      createImagePreview();
     }
 
     fetchDishes();
@@ -67,7 +56,10 @@ export function Details() {
             voltar
           </NavigationButton>
 
-          <img src={image} alt="Image do prato selecionado" />
+          <img
+            src={`${api.defaults.baseURL}/files/${data.image}`}
+            alt="Image do prato selecionado"
+          />
 
           <Content>
             <DishDescription>
