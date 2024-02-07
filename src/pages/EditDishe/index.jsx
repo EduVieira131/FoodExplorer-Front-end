@@ -8,6 +8,7 @@ import {
   AddImageButton,
   Container,
   Content,
+  ControlsPanel,
   DescriptionTextarea,
   FieldWrapper,
   FormSection,
@@ -25,6 +26,8 @@ import { IngredientButton } from "../../components/ingredientButton";
 import { Input } from "../../components/input";
 
 export function EditDishe() {
+  const [data, setData] = useState("");
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -98,14 +101,22 @@ export function EditDishe() {
     navigate(`/details/${params.id}`);
   }
 
+  async function handleDeleteProduct() {
+    await api.delete(`/products/${params.id}`);
+    alert("Produto deletado com sucesso");
+    navigate("/");
+  }
+
   useEffect(() => {
     async function fetchDishes() {
       const response = await api.get(`/products/${params.id}`);
+      setData(response.data);
     }
 
     fetchDishes();
   }, []);
 
+  console.log(data);
   return (
     <Container>
       <Header.Root>
@@ -116,100 +127,112 @@ export function EditDishe() {
         <Header.Logout />
       </Header.Root>
 
-      <Content>
-        <NavigationButton onClick={handleBack}>
-          <PiCaretLeft size={22} color="white" />
-          voltar
-        </NavigationButton>
+      {data && (
+        <Content>
+          <NavigationButton onClick={handleBack}>
+            <PiCaretLeft size={22} color="white" />
+            voltar
+          </NavigationButton>
 
-        <h1>Editar prato</h1>
+          <h1>Editar prato</h1>
 
-        <FormSection>
-          <FieldWrapper>
-            <div>
-              <span>Imagem do prato</span>
+          <FormSection>
+            <FieldWrapper>
+              <div>
+                <span>Imagem do prato</span>
 
-              <AddImageButton htmlFor="disheImage">
-                <AiOutlineUpload size={28} color="white" />
-                <span>Selecione imagem para alterá-la</span>
+                <AddImageButton htmlFor="disheImage">
+                  <AiOutlineUpload size={28} color="white" />
+                  <span>Selecione imagem para alterá-la</span>
 
-                <input
-                  type="file"
-                  id="disheImage"
-                  onChange={handleChangeImage}
-                />
-              </AddImageButton>
-            </div>
+                  <input
+                    type="file"
+                    id="disheImage"
+                    onChange={handleChangeImage}
+                  />
+                </AddImageButton>
+              </div>
 
-            <Input
-              label="Nome"
-              placeholder="Ex.:Salada Ceasar"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+              <Input
+                label="Nome"
+                placeholder="Ex.:Salada Ceasar"
+                type="text"
+                value={data.name}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+
+              <FieldWrapper>
+                <label htmlFor="category">Categoria</label>
+                <SelectCategoryInput
+                  id="category"
+                  value={data.categories.name}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option value="refeição">Refeição</option>
+                  <option value="sobremesa">Sobremesa</option>
+                  <option value="bebida">Bebida</option>
+                </SelectCategoryInput>
+              </FieldWrapper>
+            </FieldWrapper>
 
             <FieldWrapper>
-              <label htmlFor="category">Categoria</label>
-              <SelectCategoryInput
-                id="category"
-                value={category}
-                onClick={(e) => setCategory(e.target.value)}
-              >
-                <option value="refeição">Refeição</option>
-                <option value="sobremesa">Sobremesa</option>
-                <option value="bebida">Bebida</option>
-              </SelectCategoryInput>
-            </FieldWrapper>
-          </FieldWrapper>
+              <span>Ingredientes</span>
 
-          <FieldWrapper>
-            <span>Ingredientes</span>
+              <TagSection>
+                {tags.map((tag, index) => (
+                  <IngredientButton
+                    value={data.ingredients[0].name}
+                    key={String(index)}
+                    onClick={() => {
+                      handleRemoveTag(tag);
+                    }}
+                  />
+                ))}
 
-            <TagSection>
-              {tags.map((tag, index) => (
                 <IngredientButton
-                  value={tag}
-                  key={String(index)}
-                  onClick={() => {
-                    handleRemoveTag(tag);
-                  }}
+                  isNew
+                  onChange={(e) => setNewTag(e.target.value)}
+                  value={newTag}
+                  onClick={handleAddTag}
+                  placeholder="Adicionar"
                 />
-              ))}
+              </TagSection>
 
-              <IngredientButton
-                isNew
-                onChange={(e) => setNewTag(e.target.value)}
-                value={newTag}
-                onClick={handleAddTag}
-                placeholder="Adicionar"
+              <Input
+                label="Preço"
+                placeholder={`${
+                  data.price
+                    ? new Intl.NumberFormat("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      }).format(data.price)
+                    : "R$ 00,00"
+                }`}
+                type="number"
+                onChange={(e) => setPrice(e.target.value)}
               />
-            </TagSection>
+            </FieldWrapper>
 
-            <Input
-              label="Preço"
-              placeholder="R$ 00,00"
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
-          </FieldWrapper>
+            <FieldWrapper>
+              <label htmlFor="description">Descrição</label>
+              <DescriptionTextarea
+                id="description"
+                cols="30"
+                rows="10"
+                value={data.description}
+                onChange={(e) => setDescription(e.target.value)}
+              ></DescriptionTextarea>
+            </FieldWrapper>
 
-          <FieldWrapper>
-            <label htmlFor="description">Descrição</label>
-            <DescriptionTextarea
-              id="description"
-              value={description}
-              cols="30"
-              rows="10"
-              placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
-              onChange={(e) => setDescription(e.target.value)}
-            ></DescriptionTextarea>
-          </FieldWrapper>
-
-          <Button onClick={handleAddProduct}>Salvar alterações</Button>
-        </FormSection>
-      </Content>
+            <ControlsPanel>
+              <Button onClick={handleDeleteProduct} secondary>
+                Excluir prato
+              </Button>
+              <Button onClick={handleAddProduct}>Salvar alterações</Button>
+            </ControlsPanel>
+          </FormSection>
+        </Content>
+      )}
 
       <Footer />
     </Container>

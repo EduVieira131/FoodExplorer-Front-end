@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Container = styled.button`
   width: 100%;
@@ -12,10 +12,11 @@ export const Container = styled.button`
   border: none;
   border-radius: 5px;
 
-  background-color: ${({ theme }) => theme.colors.tomato_100};
+  background-color: ${({ theme, secondary }) =>
+    secondary ? theme.colors.dark_800 : theme.colors.tomato_100};
   color: ${({ theme }) => theme.colors.light_100};
 
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 24px;
@@ -27,4 +28,4 @@ export const Container = styled.button`
   &:disabled {
     background-color: ${({ theme }) => theme.colors.tomato_400};
   }
-`
+`;

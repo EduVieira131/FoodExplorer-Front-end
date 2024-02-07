@@ -166,3 +166,11 @@ export const TagSection = styled.div`
 
   background-color: ${({ theme }) => theme.colors.dark_900};
 `;
+
+export const ControlsPanel = styled.div`
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 32px;
+`;
