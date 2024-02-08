@@ -28,3 +28,9 @@ cd FoodExplorer-Front-end
 npm install
 npm run dev
 ```
+
+> **Note**
+> To test the functionality of the project, create your account or use an already created test account for testing purposes:
+>
+> - Email: admin@admin.com </br>
+> - Password: 123456
