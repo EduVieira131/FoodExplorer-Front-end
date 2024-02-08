@@ -12,15 +12,16 @@ export const Container = styled.div`
   overflow-y: auto;
 `;
 
-export const Content = styled.div`
+export const Main = styled.div`
   width: 100%;
   height: auto;
-
-  padding: 12px 32px 0px;
+  max-width: 85vw;
 
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  margin-inline: auto;
 
   position: relative;
 
@@ -33,6 +34,10 @@ export const Content = styled.div`
     line-height: 140%;
 
     color: ${({ theme }) => theme.colors.light_300};
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1120px;
   }
 `;
 
@@ -54,12 +59,6 @@ export const NavigationButton = styled.button`
   line-height: 140%;
 
   color: ${({ theme }) => theme.colors.light_300};
-
-  @media (min-width: 1200px) {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
 `;
 
 export const FormSection = styled.div`
@@ -80,12 +79,52 @@ export const FormSection = styled.div`
   }
 `;
 
-export const FieldWrapper = styled.div`
+export const FormFirstSection = styled.div`
   width: 100%;
 
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (min-width: 1200px) {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 32px;
+  }
+`;
+
+export const FormSecondSection = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (min-width: 1200px) {
+    display: grid;
+    grid-template-columns: 3fr 0.7fr;
+    gap: 32px;
+  }
+`;
+
+export const InputWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+`;
+
+export const ConfirmButton = styled.div`
+  width: 100%;
+  height: auto;
+
+  @media (min-width: 1200px) {
+    width: fit-content;
+
+    align-self: flex-end;
+  }
 `;
 
 export const SelectCategoryInput = styled.select`
@@ -105,7 +144,6 @@ export const AddImageButton = styled.label`
   width: 100%;
   height: auto;
 
-  margin-top: 8px;
   padding: 12px 32px;
 
   display: flex;
@@ -153,13 +191,16 @@ export const DescriptionTextarea = styled.textarea`
 
 export const TagSection = styled.div`
   width: 100%;
+  max-height: 48px;
 
   padding: 4px 8px;
 
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 16px;
+
+  overflow-x: auto;
 
   border: none;
   border-radius: 8px;

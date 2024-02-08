@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: fit-content;
+  min-width: 120px;
   max-width: 120px;
-
   display: flex;
   align-items: center;
 
@@ -15,7 +14,7 @@ export const Container = styled.div`
   border: ${({ theme, isNew }) =>
     isNew ? `1px dashed ${theme.colors.light_500}` : "none"};
 
-  padding: 10px 16px;
+  padding: 3px 16px;
 
   border-radius: 10px;
 

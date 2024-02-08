@@ -7,11 +7,13 @@ import { api } from "../../services/api";
 import {
   AddImageButton,
   Container,
-  Content,
   ControlsPanel,
   DescriptionTextarea,
-  FieldWrapper,
+  FormFirstSection,
+  FormSecondSection,
   FormSection,
+  InputWrapper,
+  Main,
   NavigationButton,
   SelectCategoryInput,
   TagSection,
@@ -128,7 +130,7 @@ export function EditDishe() {
       </Header.Root>
 
       {data && (
-        <Content>
+        <Main>
           <NavigationButton onClick={handleBack}>
             <PiCaretLeft size={22} color="white" />
             voltar
@@ -137,8 +139,8 @@ export function EditDishe() {
           <h1>Editar prato</h1>
 
           <FormSection>
-            <FieldWrapper>
-              <div>
+            <FormFirstSection>
+              <InputWrapper>
                 <span>Imagem do prato</span>
 
                 <AddImageButton htmlFor="disheImage">
@@ -151,17 +153,19 @@ export function EditDishe() {
                     onChange={handleChangeImage}
                   />
                 </AddImageButton>
-              </div>
+              </InputWrapper>
 
-              <Input
-                label="Nome"
-                placeholder="Ex.:Salada Ceasar"
-                type="text"
-                value={data.name}
-                onChange={(e) => setTitle(e.target.value)}
-              />
+              <InputWrapper>
+                <Input
+                  label="Nome"
+                  placeholder="Ex.:Salada Ceasar"
+                  type="text"
+                  value={data.name}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </InputWrapper>
 
-              <FieldWrapper>
+              <InputWrapper>
                 <label htmlFor="category">Categoria</label>
                 <SelectCategoryInput
                   id="category"
@@ -172,48 +176,52 @@ export function EditDishe() {
                   <option value="sobremesa">Sobremesa</option>
                   <option value="bebida">Bebida</option>
                 </SelectCategoryInput>
-              </FieldWrapper>
-            </FieldWrapper>
+              </InputWrapper>
+            </FormFirstSection>
 
-            <FieldWrapper>
-              <span>Ingredientes</span>
+            <FormSecondSection>
+              <InputWrapper>
+                <span>Ingredientes</span>
 
-              <TagSection>
-                {tags.map((tag, index) => (
+                <TagSection>
+                  {tags.map((tag, index) => (
+                    <IngredientButton
+                      value={data.ingredients[0].name}
+                      key={String(index)}
+                      onClick={() => {
+                        handleRemoveTag(tag);
+                      }}
+                    />
+                  ))}
+
                   <IngredientButton
-                    value={data.ingredients[0].name}
-                    key={String(index)}
-                    onClick={() => {
-                      handleRemoveTag(tag);
-                    }}
+                    isNew
+                    onChange={(e) => setNewTag(e.target.value)}
+                    value={newTag}
+                    onClick={handleAddTag}
+                    placeholder="Adicionar"
                   />
-                ))}
+                </TagSection>
+              </InputWrapper>
 
-                <IngredientButton
-                  isNew
-                  onChange={(e) => setNewTag(e.target.value)}
-                  value={newTag}
-                  onClick={handleAddTag}
-                  placeholder="Adicionar"
+              <InputWrapper>
+                <Input
+                  label="Preço"
+                  placeholder={`${
+                    data.price
+                      ? new Intl.NumberFormat("pt-br", {
+                          style: "currency",
+                          currency: "BRL",
+                        }).format(data.price)
+                      : "R$ 00,00"
+                  }`}
+                  type="number"
+                  onChange={(e) => setPrice(e.target.value)}
                 />
-              </TagSection>
+              </InputWrapper>
+            </FormSecondSection>
 
-              <Input
-                label="Preço"
-                placeholder={`${
-                  data.price
-                    ? new Intl.NumberFormat("pt-br", {
-                        style: "currency",
-                        currency: "BRL",
-                      }).format(data.price)
-                    : "R$ 00,00"
-                }`}
-                type="number"
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </FieldWrapper>
-
-            <FieldWrapper>
+            <InputWrapper>
               <label htmlFor="description">Descrição</label>
               <DescriptionTextarea
                 id="description"
@@ -222,7 +230,7 @@ export function EditDishe() {
                 value={data.description}
                 onChange={(e) => setDescription(e.target.value)}
               ></DescriptionTextarea>
-            </FieldWrapper>
+            </InputWrapper>
 
             <ControlsPanel>
               <Button onClick={handleDeleteProduct} secondary>
@@ -231,7 +239,7 @@ export function EditDishe() {
               <Button onClick={handleAddProduct}>Salvar alterações</Button>
             </ControlsPanel>
           </FormSection>
-        </Content>
+        </Main>
       )}
 
       <Footer />

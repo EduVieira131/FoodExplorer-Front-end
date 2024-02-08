@@ -6,11 +6,14 @@ import { api } from "../../services/api";
 
 import {
   AddImageButton,
+  ConfirmButton,
   Container,
-  Content,
   DescriptionTextarea,
-  FieldWrapper,
+  FormFirstSection,
+  FormSecondSection,
   FormSection,
+  InputWrapper,
+  Main,
   NavigationButton,
   SelectCategoryInput,
   TagSection,
@@ -113,7 +116,7 @@ export function NewDishe() {
         <Header.Logout />
       </Header.Root>
 
-      <Content>
+      <Main>
         <NavigationButton onClick={handleBack}>
           <PiCaretLeft size={22} color="white" />
           voltar
@@ -122,8 +125,8 @@ export function NewDishe() {
         <h1>Adicionar prato</h1>
 
         <FormSection>
-          <FieldWrapper>
-            <div>
+          <FormFirstSection>
+            <InputWrapper>
               <span>Imagem do prato</span>
 
               <AddImageButton htmlFor="disheImage">
@@ -136,16 +139,18 @@ export function NewDishe() {
                   onChange={handleChangeImage}
                 />
               </AddImageButton>
-            </div>
+            </InputWrapper>
 
-            <Input
-              label="Nome"
-              placeholder="Ex.:Salada Ceasar"
-              type="text"
-              onChange={(e) => setTitle(e.target.value)}
-            />
+            <InputWrapper>
+              <Input
+                label="Nome"
+                placeholder="Ex.:Salada Ceasar"
+                type="text"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </InputWrapper>
 
-            <FieldWrapper>
+            <InputWrapper>
               <label htmlFor="category">Categoria</label>
               <SelectCategoryInput
                 id="category"
@@ -155,41 +160,47 @@ export function NewDishe() {
                 <option value="sobremesa">Sobremesa</option>
                 <option value="bebida">Bebida</option>
               </SelectCategoryInput>
-            </FieldWrapper>
-          </FieldWrapper>
+            </InputWrapper>
+          </FormFirstSection>
 
-          <FieldWrapper>
-            <span>Ingredientes</span>
+          <FormSecondSection>
+            <InputWrapper>
+              <span>Ingredientes</span>
 
-            <TagSection>
-              {tags.map((tag, index) => (
+              <TagSection>
+                {tags.map((tag, index) => (
+                  <IngredientButton
+                    className="ingredient-button"
+                    value={tag}
+                    key={String(index)}
+                    onClick={() => {
+                      handleRemoveTag(tag);
+                    }}
+                  />
+                ))}
+
                 <IngredientButton
-                  value={tag}
-                  key={String(index)}
-                  onClick={() => {
-                    handleRemoveTag(tag);
-                  }}
+                  isNew
+                  className="ingredient-button"
+                  onChange={(e) => setNewTag(e.target.value)}
+                  value={newTag}
+                  onClick={handleAddTag}
+                  placeholder="Adicionar"
                 />
-              ))}
+              </TagSection>
+            </InputWrapper>
 
-              <IngredientButton
-                isNew
-                onChange={(e) => setNewTag(e.target.value)}
-                value={newTag}
-                onClick={handleAddTag}
-                placeholder="Adicionar"
+            <InputWrapper>
+              <Input
+                label="Preço"
+                placeholder="R$ 00,00"
+                type="number"
+                onChange={(e) => setPrice(e.target.value)}
               />
-            </TagSection>
+            </InputWrapper>
+          </FormSecondSection>
 
-            <Input
-              label="Preço"
-              placeholder="R$ 00,00"
-              type="number"
-              onChange={(e) => setPrice(e.target.value)}
-            />
-          </FieldWrapper>
-
-          <FieldWrapper>
+          <InputWrapper>
             <label htmlFor="description">Descrição</label>
             <DescriptionTextarea
               id="description"
@@ -198,11 +209,13 @@ export function NewDishe() {
               placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
               onChange={(e) => setDescription(e.target.value)}
             ></DescriptionTextarea>
-          </FieldWrapper>
+          </InputWrapper>
 
-          <Button onClick={handleAddProduct}>Salvar alterações</Button>
+          <ConfirmButton>
+            <Button onClick={handleAddProduct}>Salvar alterações</Button>
+          </ConfirmButton>
         </FormSection>
-      </Content>
+      </Main>
 
       <Footer />
     </Container>
