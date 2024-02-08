@@ -29,6 +29,8 @@ npm install
 npm run dev
 ```
 
+Or, see the project [here](https://foodexplorerfinalproject.netlify.app/).
+
 > **Note**
 > To test the functionality of the project, create your account or use an already created test account for testing purposes:
 >
