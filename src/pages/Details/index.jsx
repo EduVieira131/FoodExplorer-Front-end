@@ -45,7 +45,7 @@ export function Details() {
         <Header.Menu />
         <Header.Logo />
         <Header.SearchBar />
-        <Header.Cart />
+        <Header.Button />
         <Header.Logout />
       </Header.Root>
 

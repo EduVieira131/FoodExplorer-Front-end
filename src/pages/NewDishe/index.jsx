@@ -97,10 +97,7 @@ export function NewDishe() {
     const imageUploadForm = new FormData();
     imageUploadForm.append("image", image);
 
-    const productImageURL = await api.patch(
-      `/products/image/${productId}`,
-      imageUploadForm
-    );
+    await api.patch(`/products/image/${productId}`, imageUploadForm);
 
     alert("Produto criado com sucesso!");
     navigate(`/details/${productId}`);
@@ -112,7 +109,7 @@ export function NewDishe() {
         <Header.Menu />
         <Header.Logo />
         <Header.SearchBar />
-        <Header.Cart />
+        <Header.Button />
         <Header.Logout />
       </Header.Root>
 

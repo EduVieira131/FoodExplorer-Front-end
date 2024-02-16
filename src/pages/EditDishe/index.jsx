@@ -125,7 +125,7 @@ export function EditDishe() {
         <Header.Menu />
         <Header.Logo />
         <Header.SearchBar />
-        <Header.Cart />
+        <Header.Button />
         <Header.Logout />
       </Header.Root>
 

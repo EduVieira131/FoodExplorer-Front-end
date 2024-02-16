@@ -1,4 +1,4 @@
-import { HeaderCart } from "./HeaderCart";
+import { HeaderButton } from "./HeaderButton";
 import { HeaderLogo } from "./HeaderLogo";
 import { HeaderLogout } from "./HeaderLogout";
 import { HeaderMenu } from "./HeaderMenu";
@@ -10,6 +10,6 @@ export const Header = {
   Menu: HeaderMenu,
   Logo: HeaderLogo,
   SearchBar: HeaderSearchBar,
-  Cart: HeaderCart,
-  Logout: HeaderLogout
-}
+  Button: HeaderButton,
+  Logout: HeaderLogout,
+};

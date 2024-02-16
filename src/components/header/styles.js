@@ -243,7 +243,7 @@ export const Logo = styled.div`
   }
 `;
 
-export const CartButton = styled.button`
+export const Button = styled.button`
   width: fit-content;
   height: 100%;
 
