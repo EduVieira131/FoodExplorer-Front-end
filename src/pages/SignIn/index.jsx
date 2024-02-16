@@ -19,7 +19,6 @@ export function SignIn() {
   const { signIn } = useAuth();
 
   function handleSignIn() {
-    console.log("oi");
     signIn({ email, password });
   }
 

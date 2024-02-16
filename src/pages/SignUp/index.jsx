@@ -7,6 +7,7 @@ import {
 } from "./styles";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import logo_polygon from "../../assets/polygon.svg";
 import { Button } from "../../components/button";
 import { Input } from "../../components/input";
@@ -23,20 +24,20 @@ export function SignUp() {
 
   function handleSignUp() {
     if (!name || !email || !password) {
-      return alert("Preencha todos os campos");
+      toast.warning("Preencha todos os campos para cadastrar um usuário.");
     }
 
     api
       .post("/users", { name, email, password })
       .then(() => {
-        alert("Usuário cadastrado com sucesso!");
+        toast.success("Usuário cadastrado com sucesso!");
         navigate("/");
       })
       .catch((error) => {
         if (error.response) {
-          alert(error.response.data.message);
+          toast.error(error.response.data.message);
         } else {
-          alert("Não foi possível cadastrar");
+          toast.error("Não foi possível cadastrar o usuário.");
         }
       });
   }

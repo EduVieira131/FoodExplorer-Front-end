@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { api } from "../services/api";
 
 const AuthContext = createContext({});
@@ -15,11 +16,12 @@ function AuthProvider({ children }) {
       localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
 
       setData({ user });
+      toast.success("Usuário logado com sucesso!");
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        alert("Não foi possível entrar");
+        toast.error("Não foi possível entrar.");
       }
     }
   }
@@ -28,6 +30,7 @@ function AuthProvider({ children }) {
     localStorage.removeItem("@foodexplorer:user");
 
     setData({});
+    toast.success("Usuário desconectado com sucesso!");
   }
 
   useEffect(() => {
