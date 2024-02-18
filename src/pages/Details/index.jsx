@@ -34,6 +34,10 @@ export function Details() {
     navigate("/");
   }
 
+  function handleEditProduct() {
+    navigate(`/edit_dishe/${params.id}`)
+  }
+
   useEffect(() => {
     async function fetchDishes() {
       const response = await api.get(`/products/${params.id}`);
@@ -83,7 +87,7 @@ export function Details() {
 
               {
                 user.role === USER_ROLE.ADMIN ? (
-                  <Button>Editar produto</Button>
+                  <Button onClick={handleEditProduct}>Editar produto</Button>
                 ) : (
                   <Button>
                 <PiReceipt size={23} color="white" />

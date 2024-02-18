@@ -5,6 +5,7 @@ import { useAuth } from "../../hooks/auth";
 import { Footer } from "../footer/index";
 
 import { CloseMenuButton, MenuButton, MenuItem, SideMenu } from "./styles";
+import { USER_ROLE } from "../../roles/roles";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
