@@ -19,6 +19,7 @@ import { PiCaretLeft, PiReceipt } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
+import { USER_ROLE } from "../../roles/roles";
 
 export function Details() {
   const [data, setData] = useState();
@@ -77,7 +78,11 @@ export function Details() {
             <ControlsPanel>
               <Stepper />
 
-              <Button>
+              {
+                user.role === USER_ROLE.ADMIN ? (
+                  <Button>Editar produto</Button>
+                ) : (
+                  <Button>
                 <PiReceipt size={23} color="white" />
                 pedir ∙{" "}
                 {new Intl.NumberFormat("pt-br", {
@@ -85,6 +90,8 @@ export function Details() {
                   currency: "BRL",
                 }).format(data.price)}
               </Button>
+                )
+              }
             </ControlsPanel>
           </Content>
         </ContentSection>

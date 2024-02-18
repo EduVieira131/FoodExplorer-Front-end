@@ -4,7 +4,7 @@ import { Content } from "./styles";
 export function CardContent({ image, name, description, price, ...rest }) {
   return (
     <Content {...rest}>
-      <img src={image} alt={name} />
+      <img src={`${api.defaults.baseURL}/files/${image}`} alt={name} />
 
       <h1>{name} {">"}</h1>
       <p>{description}</p>

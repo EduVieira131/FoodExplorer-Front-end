@@ -55,7 +55,7 @@ export function Section({ category, products }) {
                   name={product.name}
                   description={product.description}
                   price={product.price}
-                  image={imageExample}
+                  image={product.image}
                   onClick={() => handleDetails(product.id)}
                 />
 
