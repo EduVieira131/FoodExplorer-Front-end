@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function HeaderMenu() {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
@@ -22,6 +22,14 @@ export function HeaderMenu() {
       setMenuIsOpen(false);
       event.target.value = "";
     }
+  }
+
+  function handleAddDisheNavigation() {
+    if (user.role === USER_ROLE.CUSTOMER) {
+      return;
+    }
+
+    navigate("/new_product");
   }
 
   function handleSignOut() {
@@ -55,7 +63,7 @@ export function HeaderMenu() {
           </label>
 
           <div>
-            <MenuItem>Novo prato</MenuItem>
+            <MenuItem onClick={handleAddDisheNavigation}>Novo prato</MenuItem>
             <MenuItem onClick={handleSignOut}>Sair</MenuItem>
           </div>
         </main>

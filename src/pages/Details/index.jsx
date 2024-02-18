@@ -20,8 +20,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { USER_ROLE } from "../../roles/roles";
+import { useAuth } from "../../hooks/auth";
 
 export function Details() {
+  const {user} = useAuth()
+
   const [data, setData] = useState();
 
   const params = useParams();

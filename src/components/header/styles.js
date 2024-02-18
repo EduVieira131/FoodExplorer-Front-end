@@ -247,6 +247,8 @@ export const Button = styled.button`
   width: fit-content;
   height: 100%;
 
+  display: none;
+
   background: none;
   border: none;
 
