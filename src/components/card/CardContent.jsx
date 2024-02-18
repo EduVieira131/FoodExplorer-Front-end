@@ -1,4 +1,5 @@
 import { Content } from "./styles";
+import { api } from "../../services/api";
 
 // eslint-disable-next-line react/prop-types
 export function CardContent({ image, name, description, price, ...rest }) {
