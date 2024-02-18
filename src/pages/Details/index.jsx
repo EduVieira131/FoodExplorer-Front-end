@@ -35,7 +35,7 @@ export function Details() {
   }
 
   function handleEditProduct() {
-    navigate(`/edit_dishe/${params.id}`)
+    navigate(`/edit_product/:${params.id}`)
   }
 
   useEffect(() => {
